@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg_web_example/platform_svg.dart';
 
 void main() {
   runApp(MyApp());
@@ -100,6 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
+            PlatformSvg.asset('assets/images/sentiment_very_satisfied-24px.svg')
           ],
         ),
       ),
