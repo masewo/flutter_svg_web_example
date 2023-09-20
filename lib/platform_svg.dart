@@ -12,7 +12,7 @@ class PlatformSvg {
   static final Random _random = Random();
 
   static Widget string(String svgString,
-      {double width = 24, double height = 24, String hashCode}) {
+      {double width = 24, double height = 24, String? hashCode}) {
     if (kIsWeb) {
       hashCode ??= String.fromCharCodes(
           List<int>.generate(128, (i) => _random.nextInt(256)));
@@ -40,15 +40,15 @@ class PlatformSvg {
       {double width = 24,
       double height = 24,
       BoxFit fit = BoxFit.contain,
-      Color color,
-      String semanticsLabel}) {
+      Color? color,
+      String? semanticsLabel}) {
     if (kIsWeb) {
       String hashCode = assetName.replaceAll('/', '-').replaceAll('.', '-');
-      return FutureBuilder(
+      return FutureBuilder<String>(
           future: rootBundle.loadString(assetName),
           builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
             if (snapshot.hasData) {
-              return string(snapshot.data,
+              return string(snapshot.requireData,
                   width: width, height: height, hashCode: hashCode);
             } else if (snapshot.hasError) {
               return Container(
@@ -68,7 +68,8 @@ class PlatformSvg {
         width: width,
         height: height,
         fit: fit,
-        color: color,
+        colorFilter:
+            color == null ? null : ColorFilter.mode(color, BlendMode.srcIn),
         semanticsLabel: semanticsLabel);
   }
 }
